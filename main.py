@@ -33,7 +33,7 @@ table = "caesaraiworldmodels"
 
 @app.get('/')# GET # allow all origins all methods.
 async def index():
-    return "Welcome to CaesarAI Template"
+    return "Welcome to CaesarAI Template. Hello"
 @app.post('/sendmessage')# GET # allow all origins all methods.
 async def sendmessage(data: JSONStructure = None):
     try:
