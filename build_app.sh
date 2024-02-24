@@ -30,9 +30,9 @@ terraform plan
 terraform apply -auto-approve
 
 # Push Github
-git add .
-git commit -m "$1"
-git push origin -u main:main
+#git add .
+#git commit -m "$1"
+#git push origin -u main:main
 
 # Test application
 docker run -it -p 8080:8080 palondomus/$image:$newv
