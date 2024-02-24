@@ -1,5 +1,5 @@
 #!/bin/bash
-image="caesaraifastapi"
+image="anthropicapi"
 
 function getVersions() {
     IN=$(cat main.tf | grep palondomus/$image)
