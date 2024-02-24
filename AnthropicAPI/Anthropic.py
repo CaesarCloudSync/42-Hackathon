@@ -8,8 +8,7 @@ class AnthropicAPI:
         
         self.client = anthropic.Anthropic(
             # defaults to 
-            api_key=""#"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"
-
+            api_key=os.getenv("ANTHROPIC_API_KEY")
         )
     def create_message(self,message):
         message = self.client.messages.create(

@@ -99,7 +99,11 @@ async def create_profile_for_parent(email:str,username:str):
             if result:
                 for user in result:
                     question_set_title = user["question_set_title"]
-                    res = SendPrompt.send(caesarcrud,anthapi,username,question_set_title)
+                    check_exists = caesarcrud.check_exists(("*"),"hackathonprompts",f"username = '{username}' AND question_set_title = '{question_set_title}'")
+                    if not check_exists:
+                        res = SendPrompt.send(caesarcrud,anthapi,username,question_set_title)
+                    else:
+                         caesarcrud.get_data)
                     CaesarAIEmail.send(**{"email":email,"subject":f"{username} | {question_set_title} Report","message":res})
                 return {"username":username,"question set":question_set_title,"message":res}
             else:
@@ -123,10 +127,10 @@ async def create_profile_for_teacher():
                     question_set_title = user["question_set_title"]
                     if username not in user_done:
                         print(username,question_set_title)
-                        res = SendPrompt.send(caesarcrud,anthapi,username,question_set_title)
-                        res = res.replace("\n","<br>")
                         check_exists = caesarcrud.check_exists(("*"),"hackathonprompts",f"username = '{username}' AND question_set_title = '{question_set_title}'")
                         if not check_exists:
+                            res = SendPrompt.send(caesarcrud,anthapi,username,question_set_title)
+                            res = res.replace("\n","<br>")
                             caesarcrud.post_data(("username","question_set_title","prompt"),(username,question_set_title,res),"hackathonprompts")
                         user_result.append({"username":username,"message":res})
                         #CaesarAIEmail.send(**{"email":"amari.lawal@gmail.com","subject":"Profile Generated","message":"Profile Generated."})
