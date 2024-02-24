@@ -103,7 +103,7 @@ async def create_profile_for_parent(email:str,username:str):
                     if not check_exists:
                         res = SendPrompt.send(caesarcrud,anthapi,username,question_set_title)
                     else:
-                         caesarcrud.get_data)
+                         caesarcrud.get_data
                     CaesarAIEmail.send(**{"email":email,"subject":f"{username} | {question_set_title} Report","message":res})
                 return {"username":username,"question set":question_set_title,"message":res}
             else:
