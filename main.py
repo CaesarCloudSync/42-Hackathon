@@ -97,14 +97,24 @@ async def create_profile_for_parent(email:str,username:str):
         try:
             result = caesarcrud.get_data(("username","question_set_title"),"hackathon",f"username = '{username}'")
             if result:
+                prompts_done = []
                 for user in result:
                     question_set_title = user["question_set_title"]
                     check_exists = caesarcrud.check_exists(("*"),"hackathonprompts",f"username = '{username}' AND question_set_title = '{question_set_title}'")
                     if not check_exists:
+
                         res = SendPrompt.send(caesarcrud,anthapi,username,question_set_title)
+                        res = res.replace("<br>","\n",1000)
+                        CaesarAIEmail.send(**{"email":email,"subject":f"{username} | {question_set_title} Report","message":res})
                     else:
-                         caesarcrud.get_data
-                    CaesarAIEmail.send(**{"email":email,"subject":f"{username} | {question_set_title} Report","message":res})
+                        res = caesarcrud.get_data(("prompt",),"hackathonprompts",f"username = '{username}' AND question_set_title = '{question_set_title}'")[0]["prompt"]
+                        if res not in prompts_done:
+                            res = res.replace("<br>","\n",1000)
+                            CaesarAIEmail.send(**{"email":email,"subject":f"{username} | {question_set_title} Report","message":res})
+                            prompts_done.append(res)
+
+                        
+                    
                 return {"username":username,"question set":question_set_title,"message":res}
             else:
                 return {"error":"doesn't exist."}

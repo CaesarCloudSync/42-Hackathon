@@ -41,7 +41,7 @@ class AnthropicTestCase(unittest.TestCase):
         response = requests.get(f"{uri}/get_profile_for_teacher")
         print(response.json())
     def test_gen_parent(self):
-        response = requests.get(f"{uri}/create_profile_for_parent",params={"username":"Amari","question_set_title":"Maths Test for 8-9 Year Olds","question":"What is 10 minus 3?","useranswered":"9","answer":"7","numofattempts":3,"hintsused":0})
+        response = requests.get(f"{uri}/create_profile_for_parent",params={"email":"amari.lawal@gmail.com","username":"Amari","question_set_title":"Maths Test for 8-9 Year Olds"})
         print(response.json())
 
 
